@@ -1,6 +1,6 @@
 ---
 name: setup
-description: Configure your Olostep API key for web scraping, search, and crawling. Run this first before using other Olostep skills.
+description: Configure the Olostep API key so the MCP server and all Olostep skills work correctly. Use when the user is setting up Olostep for the first time, has no API key configured, or is getting authentication errors.
 ---
 
 # Olostep Setup

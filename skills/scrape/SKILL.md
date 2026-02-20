@@ -1,40 +1,53 @@
 ---
 name: scrape
-description: Scrape a single webpage and extract its content as clean markdown, HTML, JSON, or text using Olostep. Handles JavaScript rendering, anti-bot protection, and proxy rotation automatically.
+description: Scrape a single webpage and extract its content as clean markdown, HTML, JSON, or text using Olostep. Use when the user shares a URL and wants to read it, extract content from it, understand its structure, use it as context for coding, or turn a page into data.
 ---
 
 # Olostep Scrape
 
-Extract content from a single webpage using Olostep's web scraping API.
+Extract clean, LLM-ready content from any URL — including JavaScript-heavy pages, SPAs, and bot-protected sites.
 
 ## When to use
-- Extracting content from a specific URL
-- Getting clean markdown from JavaScript-heavy pages
-- Scraping pages behind anti-bot protection
-- Getting geo-specific content with country routing
 
-## Instructions
+- User pastes a URL and says "read this", "summarise this", "use this as context"
+- User wants to pull content from a docs page to help write code against that API
+- User wants to extract data from a product page, blog post, job listing, or changelog
+- User needs page content that their browser can see but the AI cannot
 
-When the user provides a URL:
+## Workflow
 
-1. Use the `scrape_website` MCP tool with the URL.
-2. Default to `markdown` format unless the user specifies otherwise (`html`, `json`, `text`).
-3. For JavaScript-heavy pages or SPAs, suggest `wait_before_scraping: 2000`.
-4. For geo-targeted content, use a country code (e.g., `US`, `GB`, `CA`).
+1. Use `scrape_website` with the URL.
+2. Default to `markdown` — it's the cleanest format for AI reasoning.
+3. Use `wait_before_scraping: 3000` for JS-heavy pages or SPAs (React, Next.js, Vue apps).
+4. Use `output_format: json` with a `parser` when extracting structured product/listing data.
+5. After scraping, act on the content — summarise it, extract fields from it, use it to write code, answer questions about it.
+
+## Real developer workflows
+
+**"Read the docs and write the integration"**
+> "Scrape https://docs.stripe.com/api/payment_intents and write me a TypeScript function to create a payment intent"
+→ Scrape the docs page, then write the code using that exact API reference.
+
+**"What changed in this changelog?"**
+> "Scrape https://github.com/vercel/next.js/releases and tell me what's new in the last 3 releases"
+→ Scrape the releases page, extract and summarise the changes.
+
+**"Pull this job listing into my cover letter context"**
+> "Scrape this job posting and tailor my CV summary to match it: https://..."
+→ Scrape the listing, extract requirements, generate tailored content.
+
+**"Get this competitor's pricing"**
+> "Scrape https://competitor.com/pricing and extract their plan names and prices as JSON"
+→ Use `output_format: json` to get structured pricing data.
 
 ## Parameters
-- **url_to_scrape**: The webpage URL (required)
-- **output_format**: `markdown` (default), `html`, `json`, or `text`
-- **country**: Country code for geo-targeted scraping (optional)
-- **wait_before_scraping**: Milliseconds to wait for JS rendering, 0–10000 (optional)
-- **parser**: Specialized parser ID e.g. `@olostep/amazon-product` (optional)
-
-## Examples
-- "Scrape https://example.com" → extracts as markdown
-- "Get the JSON from https://example.com/product" → uses json format
-- "Scrape https://amazon.com/dp/B0... using the amazon-product parser"
+- **url_to_scrape**: URL to scrape (required)
+- **output_format**: `markdown` (default), `html`, `json`, `text`
+- **wait_before_scraping**: ms to wait for JS to render, 0–10000 (use 3000 for SPAs)
+- **country**: Country code for geo-targeted content e.g. `US`, `GB`
+- **parser**: Specialised parser e.g. `@olostep/amazon-product`
 
 ## Tips
-- Olostep handles JS rendering, anti-bot, and proxies automatically
-- Use specialized parsers for Amazon, LinkedIn, and other platforms
-- For large batches, use the `batch` skill instead
+- Always act on the scraped content, don't just return it raw
+- For batches of URLs, use the `batch` skill
+- For entire sites, use the `crawl` skill

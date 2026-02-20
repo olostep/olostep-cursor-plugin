@@ -1,7 +1,7 @@
 {
   "name": "olostep",
   "version": "1.0.0",
-  "description": "Turn any website into clean, LLM-ready markdown or structured data. Olostep integrates powerful web scraping, crawling, search, and AI-powered answers directly into Cursor. Scrape single pages, crawl entire sites, map site structures, batch process up to 10k URLs, and search the web — all with automatic JavaScript rendering, anti-bot handling, and proxy rotation built in.",
+  "description": "Turn the entire web into LLM-ready context. Olostep integrates powerful web scraping, search, and AI answers directly into Cursor. Essential for developer workflows: debug obscure errors by scraping GitHub issues, automate framework migrations by scraping breaking changes, turn websites into typed JSON schemas, or crawl entire API docs into context. Handles JS rendering, anti-bot, and proxies automatically.",
   "author": {
     "name": "Olostep",
     "email": "support@olostep.com"
@@ -10,13 +10,14 @@
   "repository": "https://github.com/olostep/olostep-cursor-plugin",
   "license": "MIT",
   "keywords": [
+    "debugging",
     "web-scraping",
     "web-search",
     "crawling",
     "markdown-extraction",
+    "schema-extraction",
     "ai-answers",
-    "batch-scraping",
-    "content-extraction",
+    "code-migration",
     "mcp",
     "olostep"
   ],

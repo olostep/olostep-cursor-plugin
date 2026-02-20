@@ -1,37 +1,56 @@
 ---
 name: answers
-description: Get AI-powered answers with citations and sources from live web data using Olostep. Optionally return structured JSON output matching a custom schema.
+description: Get AI-powered answers with citations from live web data using Olostep. Use when the user needs up-to-date facts, competitive intelligence, pricing comparisons, or wants web-sourced answers returned as structured JSON for use in code.
 ---
 
 # Olostep AI Answers
 
-Search the web and get AI-powered answers with sources and citations. Supports structured JSON output.
+Get AI-synthesised answers from live web data with source citations. Supports structured JSON output for use directly in code.
 
 ## When to use
-- Research questions that need up-to-date web data
-- Competitive intelligence and market research
-- Fact-checking with source citations
-- Extracting structured data (prices, specs, names) from the web
 
-## Instructions
+- User needs current information the AI's training data may not have
+- User wants a structured data object pulled from the web (prices, specs, rankings)
+- User is doing competitive research and needs comparable data across multiple sources
+- User wants a fact-checked answer with verifiable citations
 
-When the user asks a research question:
+## Workflow
 
-1. Use the `answers` MCP tool with the question as the `task`.
-2. If the user wants structured output, construct a JSON schema for the `json` parameter.
-3. Present the answer clearly with its citations and source URLs.
+1. Use `answers` with the user's question as `task`.
+2. If the result needs to be used in code or compared in a table, provide a `json` schema.
+3. Return the answer with its source URLs.
+4. Offer to scrape any source for deeper detail.
+
+## Real developer workflows
+
+**"Populate my comparison table"**
+> "Get the pricing for Vercel, Netlify, and Render for a hobby project — return as JSON"
+→ `answers` with schema `[{"provider": "", "free_tier": "", "paid_from": ""}]`
+→ Returns structured array you can paste directly into code or a markdown table.
+
+**"Research before writing a blog post"**
+> "What are the most common mistakes developers make with React useEffect in 2026?"
+→ `answers` returns a cited, synthesised answer from multiple current sources.
+
+**"Get company data for a CRM or outreach tool"**
+> "Find the CEO, founding year, and last funding round for linear.app"
+→ `answers` with schema `{"ceo": "", "founded": "", "last_funding": "", "amount": ""}`
+
+**"Check if a package is still maintained"**
+> "Is [npm package] still actively maintained and what's the latest version?"
+→ `answers` fetches current GitHub/npm data with citations.
+
+**"Tech stack research"**
+> "What tech stack does Notion use for their web app?"
+→ `answers` aggregates from engineering blogs, job postings, and tech trackers.
 
 ## Parameters
-- **task**: The question or task to answer using live web data (required)
-- **json**: JSON schema or example object for structured output e.g. `{"price": "", "currency": ""}` (optional)
-
-## Examples
-- "What are the top web scraping APIs in 2026 and their pricing?"
-- "Find the founders and funding of [company]" with schema `{"founders": [], "funding": ""}`
-- "Compare React vs Vue performance in 2026"
+- **task**: Question or task (required)
+- **json**: JSON schema or example object for structured output (optional)
+  - String: `"return an array of objects with name, price, and features fields"`
+  - Object: `{"name": "", "price": "", "features": []}`
 
 ## Tips
-- Great for competitive analysis, pricing research, and fact-checking
-- Use a JSON schema to get consistent, parseable output
-- Citations include source URLs — follow up with `scrape` for deeper dives
-- Answers use live web data so results reflect current information
+- The `json` parameter is the most powerful feature — use it to get data you can paste into code
+- Citations let you verify and deep-dive — always share source URLs with the user
+- Chain with `scrape` to get full content from any cited source
