@@ -11,21 +11,14 @@ Get the Olostep MCP server running in Cursor so all Olostep skills work.
 
 1. **Get an API key**: If the user doesn't have one, direct them to https://olostep.com/auth — sign up is free and takes 30 seconds. The free tier includes 100 credits/month.
 
-2. **Configure the MCP server**: Add the following to `.cursor/mcp.json` in the project root (or go to Cursor Settings → Features → MCP Servers → Add New):
-
-```json
-{
-  "mcpServers": {
-    "olostep": {
-      "command": "npx",
-      "args": ["-y", "olostep-mcp"],
-      "env": {
-        "OLOSTEP_API_KEY": "<their-api-key>"
-      }
-    }
-  }
-}
-```
+2. **Configure the MCP server**: Since they installed the plugin, the MCP server is already loaded. Tell them to:
+   - Go to Cursor Settings → Features → MCP Servers
+   - Find the `olostep` server in the list
+   - Click the gear/settings icon next to it
+   - Set the `OLOSTEP_API_KEY` environment variable to their key
+   - Restart Cursor to ensure the tools appear
+   
+*(Alternatively, if they are setting it up manually without the plugin, tell them to add the MCP JSON config to their `.cursor/mcp.json` file).*
 
 3. **Verify it works**: Suggest the user tries a simple test:
    - `/scrape` a URL to confirm scraping works

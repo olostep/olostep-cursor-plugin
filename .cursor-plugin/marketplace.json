@@ -1,0 +1,17 @@
+{
+  "name": "olostep",
+  "owner": {
+    "name": "Olostep",
+    "email": "info@olostep.com"
+  },
+  "metadata": {
+    "description": "Give Cursor a live connection to the web — scrape, search, crawl, and extract structured data from any site"
+  },
+  "plugins": [
+    {
+      "name": "olostep",
+      "source": ".",
+      "description": "Give your AI agent a live connection to the web. Scrape any URL, search the web, crawl entire doc sites, and extract structured JSON — with JS rendering, anti-bot bypass, and residential proxies built in. No more hallucinated APIs or stale docs."
+    }
+  ]
+}

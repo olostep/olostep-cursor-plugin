@@ -1,90 +1,77 @@
 # Olostep Plugin for Cursor
 
-Turn any website into clean, LLM-ready markdown or structured data. Olostep integrates powerful web scraping, crawling, search, and AI-powered answers directly into Cursor.
+Give your AI agent a live connection to the web. Olostep lets Cursor scrape any URL, search the web, crawl entire doc sites, and extract structured data — with JavaScript rendering, anti-bot bypass, and residential proxies built in.
 
-## Features
+No more hallucinated APIs. No stale docs. No copy-pasting from your browser.
 
-- **Scrape** — Extract content from any webpage as markdown, HTML, JSON, or text
-- **Search** — Search the web and get structured results
-- **Crawl** — Autonomously discover and scrape entire websites
-- **Map** — Discover all URLs on a site for analysis and planning
-- **Batch** — Scrape up to 10,000 URLs in parallel
-- **AI Answers** — Get AI-powered answers with citations from live web data
+## What you can do
 
-All with automatic JavaScript rendering, anti-bot handling, and proxy rotation built in.
-
-## Installation
-
-Install from the [Cursor Marketplace](https://cursor.com/marketplace/olostep) or add the MCP server manually.
+- **Scrape** — Extract clean markdown, HTML, JSON, or text from any webpage, including JS-heavy SPAs and bot-protected sites
+- **Search** — Get AI-synthesised answers with citations, or raw Google SERP results, from live web data
+- **Crawl** — Autonomously follow links and ingest an entire docs site or blog in one call
+- **Map** — Discover every URL on a site before you scrape, so you target exactly what you need
+- **Batch** — Scrape up to 10,000 URLs in parallel — products, job listings, changelogs, competitor pages
+- **AI Answers** — Ask a question, get a cited, structured answer pulled from live web sources
 
 ## Setup
 
-After installing, run the `setup` skill or add your API key manually:
-
 1. Get your free API key at [olostep.com/auth](https://olostep.com/auth)
-2. Add to Cursor Settings → Features → MCP, or to `.cursor/mcp.json`:
+2. Go to **Cursor Settings → Features → MCP Servers**. Find the `olostep` server (installed by this plugin), click the configuration gear, and set your `OLOSTEP_API_KEY`.
+3. Restart Cursor — run the `/setup` skill in chat if you need help.
 
-```json
-{
-  "mcpServers": {
-    "olostep": {
-      "command": "npx",
-      "args": ["-y", "olostep-mcp"],
-      "env": {
-        "OLOSTEP_API_KEY": "your-api-key-here"
-      }
-    }
-  }
-}
-```
+*(Note: If you are installing manually without the plugin, you can add the server directly to your project's `.cursor/mcp.json` instead).*
 
-## Available Skills
+## Skills
 
-| Skill | Description |
-|-------|-------------|
-| `setup` | Configure your Olostep API key |
-| `scrape` | Extract content from a single webpage |
-| `search` | Search the web for information |
-| `crawl` | Crawl an entire website from a start URL |
-| `map` | Discover all URLs on a website |
-| `batch` | Batch scrape up to 10,000 URLs |
-| `answers` | Get AI-powered answers with citations |
+| Skill | Invoke | What it does |
+|---|---|---|
+| `setup` | `/setup` | Configure your Olostep API key and verify the MCP server is running |
+| `scrape` | `/scrape` | Extract content from a single URL |
+| `search` | `/search` | Search the web for live, up-to-date information |
+| `crawl` | `/crawl` | Crawl an entire website from a start URL |
+| `map` | `/map` | Discover all URLs on a site |
+| `batch` | `/batch` | Batch scrape up to 10,000 URLs in parallel |
+| `answers` | `/answers` | Get AI-powered answers with citations and structured JSON output |
+| `docs-to-code` | `/docs-to-code` | Scrape API docs and write working, up-to-date integration code |
+| `debug-error` | `/debug-error` | Search GitHub issues and StackOverflow to fix a real error |
+| `extract-schema` | `/extract-schema` | Turn any webpage into typed JSON matching your schema |
+| `migrate-code` | `/migrate-code` | Scrape a migration guide and automatically update your code |
+| `research` | `/research` | Multi-source web research for tool comparisons and technical decisions |
 
 ## MCP Tools
 
-The following MCP tools are available directly in Cursor chat:
+These tools are available directly in Cursor chat once the MCP server is running:
 
 | Tool | Description |
-|------|-------------|
-| `scrape_website` | Extract content from a single URL |
-| `get_webpage_content` | Retrieve a webpage as markdown |
-| `search_web` | Search the web with structured results |
-| `google_search` | Get Google SERP data |
-| `create_crawl` | Autonomously crawl a website |
-| `create_map` | Discover all URLs on a site |
-| `batch_scrape_urls` | Batch scrape up to 10k URLs |
-| `answers` | AI-powered answers with citations |
-| `get_website_urls` | Search and retrieve relevant URLs |
+|---|---|
+| `scrape_website` | Extract content from a single URL — markdown, HTML, JSON, or text |
+| `get_webpage_content` | Retrieve a webpage as clean markdown |
+| `google_search` | Get structured Google SERP results — organic, knowledge graph, PAA |
+| `answers` | AI-powered answers with citations and optional JSON output shape |
+| `create_crawl` | Autonomously crawl a website from a start URL |
+| `create_map` | Discover all URLs on a site with include/exclude pattern filtering |
+| `batch_scrape_urls` | Scrape up to 10,000 URLs in parallel |
+| `get_website_urls` | Find and rank URLs within a specific site by relevance to a query |
 
-## Usage Examples
+## Real developer workflows
 
-**Scrape a webpage:**
-> "Scrape https://example.com and give me the main content"
+**"Read the docs and write the integration"**
+> "Scrape https://docs.stripe.com/api/payment_intents and write me a TypeScript function to create a payment intent"
 
-**Search the web:**
-> "Search for the top web scraping APIs in 2026"
+**"Fix this error"**
+> "I'm getting `Cannot read properties of undefined (reading 'map')` in Next.js 15 — help me fix it"
 
-**Crawl a site:**
-> "Crawl https://docs.example.com up to 50 pages and summarize the content"
+**"Crawl and learn a new library"**
+> "Crawl https://tanstack.com/query/latest/docs and give me a cheat sheet of the key hooks and patterns"
 
-**Map a site:**
-> "Map https://example.com and find all blog URLs"
+**"Compare competitors before building"**
+> "Batch scrape the pricing pages of Vercel, Netlify, and Render — extract plan names, prices, and limits as JSON"
 
-**Batch scrape:**
-> "Scrape all these 20 product URLs and extract the price and title from each"
+**"Extract structured data"**
+> "Scrape this YC directory page and return a JSON array matching my Prisma `Startup` schema"
 
-**AI Answers:**
-> "What are the pricing plans for the top 5 web scraping services? Return as JSON with name and price fields."
+**"Migrate to a new version"**
+> "Scrape the Next.js 15 migration guide and update my layout.tsx"
 
 ## Links
 
@@ -92,6 +79,7 @@ The following MCP tools are available directly in Cursor chat:
 - [API Documentation](https://docs.olostep.com)
 - [Get API Key](https://olostep.com/auth)
 - [MCP Server on npm](https://www.npmjs.com/package/olostep-mcp)
+- [Contact](mailto:info@olostep.com)
 
 ## License
 
