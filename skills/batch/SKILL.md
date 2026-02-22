@@ -26,7 +26,10 @@ Scraping 50 pages sequentially takes minutes and often fails halfway through (ra
 3. Call `batch_scrape_urls` with the array.
 4. Use `custom_id` on each URL so you can match results back to the source.
 5. Default to `markdown`. Use `json` + `parser` for structured product data.
-6. After batch completes, **synthesise across all results** — compare, extract patterns, build tables, generate code.
+6. **To see actual results** (the batch starts as "pending"):
+   - **Option A**: Pass `wait_for_completion_seconds` (e.g. `60`) so the tool polls until the batch is done and returns full results in one call.
+   - **Option B**: Call `get_batch_results` with the returned `batch_id` after a short wait (or retry until `status` is completed). Use this when you don't want to block or when the batch may take longer.
+7. After you have results, **synthesise across all results** — compare, extract patterns, build tables, generate code.
 
 ## Real developer workflows
 
@@ -68,8 +71,12 @@ Scraping 50 pages sequentially takes minutes and often fails halfway through (ra
 - **urls_to_scrape**: Array of `{url, custom_id?}` objects, 1–10,000 (required)
 - **output_format**: `markdown` (default), `html`, `json`, `text`
 - **wait_before_scraping**: ms to wait per URL for JS rendering, 0–10000 (optional)
+- **wait_for_completion_seconds**: If set (e.g. 60), poll until the batch is done and return full results; use 0 to only get `batch_id` and call `get_batch_results` later (optional)
 - **country**: Country code for geo-targeted content — e.g. `US`, `GB`, `DE` (optional)
 - **parser**: Specialised parser e.g. `@olostep/amazon-product` (optional)
+
+## Related tool
+- **get_batch_results**: Pass the `batch_id` from `batch_scrape_urls` to fetch status and scraped content for each URL when the batch is ready.
 
 ## Tips
 - **Always use `custom_id`** — it makes matching results to sources trivial (e.g. `"custom_id": "vercel-pricing"`)

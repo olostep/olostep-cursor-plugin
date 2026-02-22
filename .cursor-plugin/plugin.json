@@ -1,7 +1,7 @@
 {
   "name": "olostep",
   "displayName": "Olostep",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Give your AI agent a live connection to the web. Olostep lets Cursor scrape any URL, search the web, crawl entire doc sites, and extract structured data — all with JavaScript rendering, anti-bot bypass, and residential proxies built in. No more hallucinated APIs, stale docs, or copy-pasting from your browser. Debug errors by reading the actual GitHub issue. Write integrations against the real, current docs. Extract typed JSON from any webpage. Works on SPAs, paywalled pages, and bot-protected sites that raw HTTP can't reach.",
   "author": {
     "name": "Olostep",
