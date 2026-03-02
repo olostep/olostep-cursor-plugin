@@ -354,12 +354,21 @@ result = client.scrapes.create(url_to_scrape="https://example.com")
 print(result.html_content)
 print(result.markdown_content)
 
-# With options
+# With options (strings)
 result = client.scrapes.create(
     url_to_scrape="https://example.com",
     formats=["html", "markdown"],
     wait_before_scraping=2000,
     country="us",
+)
+
+# With typed enums (better IDE support)
+from olostep import Format, Country
+result = client.scrapes.create(
+    url_to_scrape="https://example.com",
+    formats=[Format.HTML, Format.MARKDOWN],
+    wait_before_scraping=2000,
+    country=Country.US,
 )
 ```
 
@@ -401,26 +410,49 @@ for url in maps.urls():
 ### Answers
 
 ```python
-# Simple
-answer = client.answers.create(task="What is the pricing of Stripe?")
-print(answer.answer)
+# Simple question
+answer = client.answers.create(task="What is the capital of France?")
+print(answer.answer)    # parsed dict: {'result': 'Paris'}
+print(answer.sources)   # list of source URLs
 
-# Structured
+# Structured output with JSON schema
 answer = client.answers.create(
     task="What is the latest book by J.K. Rowling?",
-    json={"book_title": "", "author": "", "release_date": ""},
+    json_schema={"book_title": "", "author": "", "release_date": ""},
 )
+parsed = answer.answer  # {'book_title': '...', 'author': '...', 'release_date': '...'}
+print(answer.sources)   # ['https://...', ...]
+
+# Retrieve a previous answer by ID
+previous = client.answers.get(answer_id=answer.id)
 ```
 
 ### Advanced — browser actions
 
+The Python SDK exports typed action classes for better IDE support and validation:
+
+```python
+from olostep import WaitAction, ClickAction, FillInputAction, ScrollAction
+
+result = client.scrapes.create(
+    url_to_scrape="https://example.com",
+    actions=[
+        WaitAction(milliseconds=2000),
+        ClickAction(selector="#load-more"),
+        ScrollAction(direction="down", amount=1000),
+        FillInputAction(selector="#search", value="query"),
+    ],
+)
+```
+
+You can also use raw dicts (same as the REST API):
 ```python
 result = client.scrapes.create(
     url_to_scrape="https://example.com",
     actions=[
         {"type": "wait", "milliseconds": 2000},
         {"type": "click", "selector": "#load-more"},
-        {"type": "scroll", "distance": 1000},
+        {"type": "scroll", "direction": "down", "amount": 1000},
         {"type": "fill_input", "selector": "#search", "value": "query"},
     ],
 )
@@ -428,22 +460,24 @@ result = client.scrapes.create(
 
 ### Advanced — LLM extraction
 
+The Python SDK exports a typed `LLMExtract` class for schema-based extraction:
+
 ```python
-# With a JSON schema
+from olostep import LLMExtract
+
+# With a JSON schema (typed class)
 result = client.scrapes.create(
     url_to_scrape="https://example.com/product",
     formats=["json"],
-    llm_extract={
-        "schema": {
-            "title": {"type": "string"},
-            "price": {"type": "number"},
-            "description": {"type": "string"},
-        }
-    },
+    llm_extract=LLMExtract(schema={
+        "title": {"type": "string"},
+        "price": {"type": "number"},
+        "description": {"type": "string"},
+    }),
 )
 print(result.json_content)
 
-# With a natural language prompt
+# With a natural language prompt (raw dict — LLMExtract class only supports schema)
 result = client.scrapes.create(
     url_to_scrape="https://example.com/events",
     formats=["json"],
