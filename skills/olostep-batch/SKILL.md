@@ -1,11 +1,11 @@
 ---
 name: olostep-batch
-description: Scrape up to 10,000 URLs in parallel using Olostep. Use when the user has a list of URLs to extract content from at once — product pages, job listings, pricing pages, changelogs, docs, or any set of known pages. Much faster than scraping one-by-one.
+description: Scrape up to 100k URLs in parallel using Olostep. Use when the user has a list of URLs to extract content from at once — product pages, job listings, pricing pages, changelogs, docs, or any set of known pages. Much faster than scraping one-by-one.
 ---
 
 # Olostep Batch Scrape
 
-Scrape up to 10,000 URLs in parallel. All pages are scraped concurrently with full browser rendering, anti-bot bypass, and residential proxies — no rate limiting, no blocking, no setup.
+Scrape up to 100k URLs in parallel. All pages are scraped concurrently with full browser rendering, anti-bot bypass, and residential proxies — no rate limiting, no blocking, no setup.
 
 ## Why this matters
 

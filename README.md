@@ -1,8 +1,17 @@
 # Olostep Plugin for Cursor
 
-**Live web search, scraping and crawling API for AI. Get structured, LLM-ready data from any site. Scale to 1M requests in a single batch at low cost.**
+**Live web search, scraping and crawling API for AI. Get structured, LLM-ready data from any site. Scale to 1M requests with 10 parallel batches at low cost.**
 
-[Olostep](https://www.olostep.com) is web data infrastructure for AI. It provides live web search, scraping and crawling API to extract and structure data. This plugin brings Olostep's web scraping, crawling, search, and AI-powered answers directly into Cursor.
+[Olostep](https://www.olostep.com) is web data infrastructure for AI agents and enterprise AI workflows. Its APIs provide live web search, scraping and crawling to extract, clean and structure data from the web. This plugin brings Olostep's web scraping, crawling, search, and AI-powered answers directly into Cursor.
+
+## Why Olostep
+
+- Web data infrastructure for developers and enterprises
+- Scales to hundreds of millions to billions of requests per customer per month
+- The most performant, reliable and cost-effective API on the market
+- Used by the fastest-growing AI companies
+
+From extracting data from a handful of URLs to crawling hundreds of millions of pages, Olostep gives developers and AI companies reliable, scalable and highly cost-effective access to clean, structured web data.
 
 ## Features
 
@@ -10,7 +19,7 @@
 - **Search** — Search the web and get structured results
 - **Crawl** — Autonomously discover and scrape entire websites
 - **Map** — Discover all URLs on a site for analysis and planning
-- **Batch** — Scrape up to 10,000 URLs in parallel
+- **Batch** — Scrape up to 100k URLs in parallel
 - **AI Answers** — Get AI-powered answers with citations from live web data
 - **Docs-to-code** — Turn current API and library documentation into implementation-ready code
 
@@ -75,7 +84,7 @@ Restart Cursor and confirm that the Olostep MCP server is enabled in **Customize
 | `olostep-search` | Search the web for information |
 | `olostep-crawl` | Crawl an entire website from a start URL |
 | `olostep-map` | Discover all URLs on a website |
-| `olostep-batch` | Batch scrape up to 10,000 URLs |
+| `olostep-batch` | Batch scrape up to 100k URLs |
 | `olostep-answers` | Get AI-powered answers with citations |
 | `olostep-docs-to-code` | Build code from current API or library documentation |
 | `olostep-debug-error` | Research current errors and known fixes |
@@ -102,7 +111,7 @@ The following MCP tools are available directly in Cursor chat:
 | `create_map` | Discover all URLs on a site |
 | `create_crawl` | Autonomously crawl a website |
 | `get_crawl_results` | Check crawl status and retrieve crawl results |
-| `batch_scrape_urls` | Batch scrape up to 10k URLs |
+| `batch_scrape_urls` | Batch scrape up to 100k URLs |
 | `get_batch_results` | Check batch status and retrieve batch results |
 | `answers` | AI-powered answers with citations |
 | `search_web` | Search the web with structured results |
